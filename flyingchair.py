@@ -9,6 +9,7 @@ screen = pygame.display.set_mode((1200,800))
 
 #KONSTANTER
 FRICTION = 0.005
+BRAKE = 0.07
 
 # Player/Spelaren
 player_sprite = pygame.image.load('player_sprite.png')
@@ -25,6 +26,7 @@ left_pressed = False
 right_pressed = False
 up_pressed = False
 down_pressed = False
+space_pressed = False
 
 # Spel-loopen
     # Har något hänt? "events"
@@ -53,6 +55,9 @@ while True:
             if event.key == K_DOWN:
                 down_pressed = True
 
+            if event.key == K_SPACE:
+                space_pressed = True
+
 
 
         #Om en knapp på tangentbordet har släppts
@@ -69,6 +74,9 @@ while True:
             if event.key == K_DOWN:
                 down_pressed = False
 
+            if event.key == K_SPACE:
+                space_pressed = False
+
 
 
     #Vilka knappar är nedtryckta just nu?
@@ -81,6 +89,10 @@ while True:
     if down_pressed:
         player_velocity_y += 0.04
 
+    # Broms!
+    if space_pressed:
+        player_velocity_x *= 1 - BRAKE
+        player_velocity_y *= 1 - BRAKE
 
     # Minska hastigheten lite pga FRICTION
     player_velocity_x *= 1 - FRICTION
