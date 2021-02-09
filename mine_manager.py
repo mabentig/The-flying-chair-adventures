@@ -39,6 +39,10 @@ class MineManager:
         for mine in self.mines:
             mine.update()
 
+        # Har minan funnits för länge? I så fall: Ta bort den!
+            if mine.is_alive == False:
+                self.remove_mine(mine)
+
     # Ritar ut alla minor i listan
     def draw(self):
         for mine in self.mines:

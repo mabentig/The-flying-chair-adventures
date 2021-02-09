@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-import random
+import random, datetime
 
 # En klass för minor
 class Mine:
@@ -13,11 +13,18 @@ class Mine:
         self.position_y = position_y
         self.velocity_x = velocity_x
         self.velocity_y = velocity_y
+        self.time_left = datetime.datetime.now() + datetime.timedelta(seconds = 5) 
+        self.is_alive = True 
+
 
     # Flyttar minan
     def update(self):
         self.position_x += self.velocity_x
         self.position_y += self.velocity_y
+
+        # Har minan funnits för länge?
+        if datetime.datetime.now() > self.time_left:
+            self.is_alive = False 
 
     # Ritar ut minan
     def draw(self):
